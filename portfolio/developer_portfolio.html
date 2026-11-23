@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Muhammad Anas is a full-stack web developer based in Pakistan, building practical web applications.">
+  <title>Muhammad Anas — Full-Stack Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f3f1ea;
+      --ink: #171816;
+      --muted: #686960;
+      --line: #c9c7bd;
+      --olive: #59623a;
+      --olive-pale: #e3e5d6;
+      --white: #fbfaf6;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "DM Sans", sans-serif;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    ::selection { background: var(--olive-pale); }
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    .shell { width: min(1180px, calc(100% - 48px)); margin-inline: auto; }
+    .mono { font-family: "IBM Plex Mono", monospace; }
+
+    .masthead {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+    }
+    .masthead-inner { display: flex; align-items: center; justify-content: space-between; }
+    .brand { text-decoration: none; font-weight: 600; letter-spacing: -0.02em; }
+    .brand-mark { display: inline-grid; place-items: center; width: 28px; height: 28px; margin-right: 8px; border: 1px solid var(--ink); font-size: 12px; }
+    .nav { display: flex; align-items: center; gap: 28px; }
+    .nav a { text-decoration: none; font-size: 14px; }
+    .nav a:not(.nav-cta)::after { content: ""; display: block; width: 0; height: 1px; background: var(--ink); transition: width 180ms ease; }
+    .nav a:not(.nav-cta):hover::after { width: 100%; }
+    .nav-cta { border-bottom: 1px solid var(--ink); }
+    .menu-button { display: none; border: 0; background: transparent; padding: 8px 0; font: 500 14px "IBM Plex Mono", monospace; }
+
+    .intro {
+      min-height: 620px;
+      display: grid;
+      grid-template-columns: 3fr 1fr;
+      align-items: end;
+      padding: 92px 0 72px;
+      border-bottom: 1px solid var(--ink);
+    }
+    .intro-main { max-width: 920px; }
+    .eyebrow { margin: 0 0 24px; color: var(--olive); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .status-dot { display: inline-block; width: 7px; height: 7px; margin-right: 8px; border-radius: 50%; background: var(--olive); vertical-align: 1px; }
+    h1 {
+      max-width: 900px;
+      margin: 0;
+      font-family: "Newsreader", Georgia, serif;
+      font-size: clamp(58px, 8vw, 112px);
+      line-height: 0.88;
+      letter-spacing: -0.055em;
+      font-weight: 500;
+    }
+    .intro-copy {
+      display: grid;
+      grid-template-columns: minmax(280px, 560px) auto;
+      align-items: end;
+      gap: 36px;
+      margin-top: 44px;
+    }
+    .lede { margin: 0; max-width: 560px; font-size: clamp(18px, 2vw, 23px); line-height: 1.42; letter-spacing: -0.02em; }
+    .text-link { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; border-bottom: 1px solid var(--ink); padding-bottom: 5px; white-space: nowrap; }
+    .text-link span { transition: transform 180ms ease; }
+    .text-link:hover span { transform: translateX(4px); }
+
+    .profile-block { align-self: end; justify-self: end; margin-bottom: 8px; }
+    .portrait {
+      position: relative;
+      margin: 0;
+      width: 158px;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      background: var(--olive-pale);
+      border: 1px solid var(--line);
+    }
+    .portrait img {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center 20%;
+      filter: grayscale(100%);
+      transition: filter 280ms ease, transform 280ms ease;
+    }
+    .portrait:hover img { filter: grayscale(0%); transform: scale(1.025); }
+    .portrait-fallback {
+      position: absolute;
+      z-index: 1;
+      inset: 0;
+      display: grid;
+      align-items: end;
+      padding: 14px;
+      font-family: "Newsreader", Georgia, serif;
+      font-size: 68px;
+      line-height: 0.75;
+      pointer-events: none;
+    }
+    .profile-meta { margin-top: 10px; color: var(--muted); font-size: 11px; line-height: 1.8; }
+
+    section { scroll-margin-top: 24px; }
+    .section-heading {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 24px;
+      padding: 24px 0 30px;
+      border-bottom: 1px solid var(--ink);
+    }
+    .section-heading h2 { margin: 0; font-size: clamp(34px, 5vw, 64px); line-height: 1; letter-spacing: -0.05em; }
+    .section-index { color: var(--muted); font-size: 12px; }
+
+    .work { padding-top: 72px; }
+    .project {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 24px;
+      padding: 40px 0 48px;
+      border-bottom: 1px solid var(--line);
+    }
+    .project-number { color: var(--muted); font-size: 12px; }
+    .project-content { max-width: 960px; }
+    .project-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, 0.72fr); gap: 40px; align-items: start; }
+    .project-copy { min-width: 0; }
+    .project-top { display: grid; grid-template-columns: 1fr auto; align-items: start; gap: 24px; }
+    .project h3 { margin: 0; font-family: "Newsreader", Georgia, serif; font-size: clamp(36px, 5vw, 58px); line-height: 0.95; letter-spacing: -0.035em; font-weight: 500; }
+    .project-year { color: var(--muted); font-size: 12px; }
+    .project-description { max-width: 680px; margin: 24px 0 28px; font-size: 19px; }
+    .case-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+    .case-grid div { padding: 16px 24px 0 0; }
+    .case-grid div + div { border-left: 1px solid var(--line); padding-left: 24px; }
+    .case-grid strong { display: block; margin-bottom: 8px; color: var(--muted); font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; }
+    .case-grid p { margin: 0; font-size: 14px; }
+    .project-links { display: flex; gap: 24px; margin-top: 26px; }
+    .project-links a { font-family: "IBM Plex Mono", monospace; font-size: 12px; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+    .browser-preview {
+      margin: 8px 0 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--white);
+      box-shadow: 0 14px 32px rgba(23, 24, 22, 0.07);
+    }
+    .browser-bar { height: 34px; display: flex; align-items: center; gap: 5px; padding: 0 10px; border-bottom: 1px solid var(--line); }
+    .browser-bar i { width: 6px; height: 6px; border: 1px solid var(--muted); border-radius: 50%; }
+    .screenshot-slot { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: var(--olive-pale); }
+    .screenshot-slot img { position: relative; z-index: 2; width: 100%; height: 100%; display: block; object-fit: cover; transition: transform 400ms ease; }
+    .browser-preview:hover img { transform: scale(1.018); }
+    .screenshot-fallback {
+      position: absolute;
+      z-index: 1;
+      inset: 0;
+      display: grid;
+      place-content: center;
+      gap: 6px;
+      text-align: center;
+      padding: 16px;
+      color: var(--olive);
+      font: 500 11px "IBM Plex Mono", monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      pointer-events: none;
+    }
+    .screenshot-fallback small { font-size: 10px; color: var(--muted); text-transform: none; letter-spacing: 0; }
+
+    .proof { padding: 72px 0 88px; }
+    .timeline { border-bottom: 1px solid var(--ink); }
+    .timeline-row { display: grid; grid-template-columns: 180px 250px 1fr; gap: 24px; padding: 26px 0; border-top: 1px solid var(--line); }
+    .timeline-row time { color: var(--muted); font-size: 12px; }
+    .timeline-row h3 { margin: 0; font-size: 18px; letter-spacing: -0.02em; }
+    .timeline-row p { margin: 0; max-width: 620px; color: #393a35; }
+
+    .toolkit { padding: 72px 0 96px; }
+    .toolkit-grid { display: grid; grid-template-columns: 180px repeat(2, 1fr); gap: 24px; }
+    .tool-group { padding-top: 22px; border-top: 1px solid var(--ink); }
+    .tool-group h3 { margin: 0 0 18px; font-size: 14px; }
+    .tool-list { display: flex; flex-wrap: wrap; gap: 7px; }
+    .tool { padding: 7px 9px; border: 1px solid var(--line); background: rgba(255,255,255,0.18); font-family: "IBM Plex Mono", monospace; font-size: 12px; }
+
+    .contact { background: var(--ink); color: var(--paper); }
+    .contact-inner { min-height: 360px; display: grid; grid-template-columns: 1fr 1fr; align-items: end; padding: 64px 0 48px; }
+    .contact h2 { margin: 0; max-width: 760px; font-family: "Newsreader", Georgia, serif; font-size: clamp(54px, 7vw, 92px); line-height: 0.92; letter-spacing: -0.05em; font-weight: 500; }
+    .contact-side { justify-self: end; width: min(300px, 100%); }
+    .contact-side p { margin: 0 0 24px; color: #c6c5bc; }
+    .contact-links { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid #55564f; }
+    .contact-links a { padding: 12px 0; border-bottom: 1px solid #55564f; text-decoration: none; font-size: 13px; }
+    .contact-links a:hover { color: #d9ddbd; }
+
+    .footer { border-top: 1px solid #55564f; }
+    .footer-inner { height: 70px; display: flex; align-items: center; justify-content: space-between; color: #aaa; font-size: 11px; }
+
+    .reveal { opacity: 0; transform: translateY(12px); transition: opacity 500ms ease, transform 500ms ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 860px) {
+      .shell { width: min(100% - 32px, 1180px); }
+      .nav { display: none; position: absolute; z-index: 20; top: 72px; left: 0; right: 0; padding: 20px 16px 24px; background: var(--paper); border-bottom: 1px solid var(--ink); }
+      .nav.open { display: grid; gap: 16px; }
+      .menu-button { display: block; }
+      .intro { min-height: auto; grid-template-columns: 1fr; padding: 72px 0 48px; }
+      .profile-block { display: none; }
+      .intro-copy { grid-template-columns: 1fr; }
+      .section-heading, .project { grid-template-columns: 76px 1fr; }
+      .project-layout { grid-template-columns: 1fr; }
+      .browser-preview { max-width: 620px; }
+      .timeline-row { grid-template-columns: 76px 180px 1fr; }
+      .toolkit-grid { grid-template-columns: 76px 1fr 1fr; }
+    }
+
+    @media (max-width: 620px) {
+      .shell { width: calc(100% - 28px); }
+      .masthead { height: 64px; }
+      .nav { top: 64px; }
+      h1 { font-size: clamp(52px, 17vw, 76px); }
+      .intro { padding-top: 56px; }
+      .lede { font-size: 18px; }
+      .section-heading { grid-template-columns: 48px 1fr; }
+      .work, .proof, .toolkit { padding-top: 52px; }
+      .project { grid-template-columns: 48px 1fr; padding: 32px 0 36px; }
+      .project-layout { grid-template-columns: 1fr; }
+      .project-top { grid-template-columns: 1fr; }
+      .project-year { grid-row: 1; }
+      .case-grid { grid-template-columns: 1fr; }
+      .case-grid div { padding: 14px 0; }
+      .case-grid div + div { border-left: 0; border-top: 1px solid var(--line); padding-left: 0; }
+      .timeline-row { grid-template-columns: 48px 1fr; }
+      .timeline-row p { grid-column: 2; }
+      .toolkit-grid { grid-template-columns: 48px 1fr; }
+      .tool-group:last-child { grid-column: 2; }
+      .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+      .contact-side { justify-self: start; }
+      .footer-inner { align-items: flex-start; height: auto; padding: 20px 0; gap: 20px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="masthead">
+    <div class="shell masthead-inner">
+      <a class="brand" href="#top" aria-label="Muhammad Anas, back to top"><span class="brand-mark">MA</span></a>
+      <button class="menu-button" id="menuButton" type="button" aria-expanded="false" aria-controls="mainNav">Menu</button>
+      <nav class="nav" id="mainNav" aria-label="Primary navigation">
+        <a href="#work">Work</a>
+        <a href="#experience">Experience</a>
+        <a href="#toolkit">Toolkit</a>
+        <a class="nav-cta" href="#contact">Get in touch</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <div class="shell">
+      <section class="intro" aria-labelledby="intro-title">
+        <div class="intro-main">
+          <p class="eyebrow mono"><span class="status-dot"></span>Available for contract / full-time</p>
+          <h1 id="intro-title">Muhammad Anas.</h1>
+          <div class="intro-copy">
+            <p class="lede">Full-stack developer building clear, useful web applications across PHP, Laravel, JavaScript and SQL. Based in Pakistan.</p>
+            <a class="text-link mono" href="#work">Selected work <span aria-hidden="true">&#8594;</span></a>
+          </div>
+        </div>
+        <aside class="profile-block" aria-label="Profile details">
+          <figure class="portrait">
+            <img src="images/image.png" alt="Portrait of Muhammad Anas" onerror="this.hidden=true">
+            <span class="portrait-fallback" aria-hidden="true">M.</span>
+          </figure>
+          <div class="profile-meta mono">FULL-STACK / UI<br>FRESH GRADUATE<br>PAKISTAN · PKT</div>
+        </aside>
+      </section>
+
+      <section class="work reveal" id="work" aria-labelledby="work-title">
+        <div class="section-heading">
+          <span class="section-index mono">01 / 04</span>
+          <h2 id="work-title">Selected work</h2>
+        </div>
+
+        <article class="project">
+          <div class="project-number mono">01</div>
+          <div class="project-content">
+            <div class="project-layout">
+              <div class="project-copy">
+                <div class="project-top">
+                  <h3>Lawyer Appointment System</h3>
+                  <span class="project-year mono">2025</span>
+                </div>
+                <p class="project-description">A scheduling and case-consultation system that lets clients find lawyers and reserve appointments without a phone call.</p>
+                <div class="case-grid">
+                  <div><strong>Problem</strong><p>Booking details were spread across calls and informal records.</p></div>
+                  <div><strong>Decision</strong><p>Used server-rendered PHP views with MySQL-backed availability and a role-based workflow.</p></div>
+                  <div><strong>Outcome</strong><p>Demo complete; prepared for real listings and booking-provider integration.</p></div>
+                </div>
+                <div class="project-links"><a href="#" aria-label="Lawyer Appointment live demo">Live demo &#8599;</a><a href="#" aria-label="Lawyer Appointment source code">Source code &#8599;</a></div>
+              </div>
+              <figure class="browser-preview">
+                <div class="browser-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+                <div class="screenshot-slot">
+                  <img src="images/lawyers 6.webp" alt="Lawyer Appointment System preview" onerror="this.remove()">
+                  <span class="screenshot-fallback">Lawyer Appointment / 01<small>Add images/project1.png to show screenshot</small></span>
+                </div>
+              </figure>
+            </div>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-number mono">02</div>
+          <div class="project-content">
+            <div class="project-layout">
+              <div class="project-copy">
+                <div class="project-top">
+                  <h3>Drive Smart</h3>
+                  <span class="project-year mono">2025</span>
+                </div>
+                <p class="project-description">A vehicle catalogue and test-drive platform with model filtering, detailed specifications and booking management.</p>
+                <div class="case-grid">
+                  <div><strong>Problem</strong><p>Customers needed a single place to compare models and make a test-drive request.</p></div>
+                  <div><strong>Decision</strong><p>Built with Laravel and Blade, keeping catalogue queries and booking state in the backend.</p></div>
+                  <div><strong>Outcome</strong><p>Complete end-to-end prototype across browsing, search and booking.</p></div>
+                </div>
+                <div class="project-links"><a href="#" aria-label="Drive Smart live demo">Live demo &#8599;</a><a href="#" aria-label="Drive Smart source code">Source code &#8599;</a></div>
+              </div>
+              <figure class="browser-preview">
+                <div class="browser-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+                <div class="screenshot-slot">
+                  <img src="image.png" alt="Drive Smart preview" onerror="this.remove()">
+                  
+                  
+                  <span class="screenshot-fallback">Drive Smart / 02<small>Add images/project2.png to show screenshot</small></span>
+                </div>
+              </figure>
+            </div>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-number mono">03</div>
+          <div class="project-content">
+            <div class="project-layout">
+              <div class="project-copy">
+                <div class="project-top">
+                  <h3>Card Special</h3>
+                  <span class="project-year mono">2024</span>
+                </div>
+                <p class="project-description">A browser-based greeting card generator with live text, type and colour controls.</p>
+                <div class="case-grid">
+                  <div><strong>Problem</strong><p>Making a personalised card required separate design tools or manual editing.</p></div>
+                  <div><strong>Decision</strong><p>Kept editing in the browser with vanilla JavaScript and jQuery for a small, direct interface.</p></div>
+                  <div><strong>Outcome</strong><p>Users can compose and preview a card without a page reload.</p></div>
+                </div>
+                <div class="project-links"><a href="#" aria-label="Card Special live demo">Live demo &#8599;</a><a href="#" aria-label="Card Special source code">Source code &#8599;</a></div>
+              </div>
+              <figure class="browser-preview">
+                <div class="browser-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+                <div class="screenshot-slot">
+                  <img src="image 1.jpg" alt="Card Special preview" onerror="this.remove()">
+                  <span class="screenshot-fallback">Card Special / 03<small>Add images/project3.png to show screenshot</small></span>
+                </div>
+              </figure>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="proof reveal" id="experience" aria-labelledby="experience-title">
+        <div class="section-heading">
+          <span class="section-index mono">02 / 04</span>
+          <h2 id="experience-title">Experience & proof</h2>
+        </div>
+        <div class="timeline">
+          <div class="timeline-row">
+            <time class="mono">2025—NOW</time>
+            <h3>Independent developer</h3>
+            <p>Building and maintaining full-stack portfolio projects, including authentication, database design, search and booking workflows.</p>
+          </div>
+          <div class="timeline-row">
+            <time class="mono">2024—2025</time>
+            <h3>Web development diploma</h3>
+            <p>Completed practical coursework across responsive interfaces, PHP, Laravel, relational databases and deployment workflows.</p>
+          </div>
+          <div class="timeline-row">
+            <time class="mono">2024</time>
+            <h3>Student Portal project</h3>
+            <p>Built coursework and deadline tracking for students, with task states, SQL-backed records and a Bootstrap interface.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="toolkit reveal" id="toolkit" aria-labelledby="toolkit-title">
+        <div class="section-heading">
+          <span class="section-index mono">03 / 04</span>
+          <h2 id="toolkit-title">Toolkit</h2>
+        </div>
+        <div class="toolkit-grid">
+          <div></div>
+          <div class="tool-group">
+            <h3>What I use daily</h3>
+            <div class="tool-list"><span class="tool">HTML / CSS</span><span class="tool">JavaScript</span><span class="tool">PHP</span><span class="tool">Laravel</span><span class="tool">MySQL</span><span class="tool">Git</span></div>
+          </div>
+          <div class="tool-group">
+            <h3>What I've worked with</h3>
+            <div class="tool-list"><span class="tool">Bootstrap</span><span class="tool">jQuery</span><span class="tool">Blade</span><span class="tool">SQL Server</span><span class="tool">REST APIs</span><span class="tool">Figma</span></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer class="contact" id="contact">
+      <div class="shell contact-inner">
+        <h2>Let’s work on something useful.</h2>
+        <div class="contact-side">
+          <p>I’m available for contract and full-time opportunities. Send a note about the project, team or role.</p>
+          <div class="contact-links">
+            <a href="mailto:hello@anas.dev">Email &#8599;</a>
+            <a href="https://github.com/" target="_blank" rel="noreferrer">GitHub &#8599;</a>
+            <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn &#8599;</a>
+            <a href="https://x.com/" target="_blank" rel="noreferrer">Twitter/X &#8599;</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <div class="shell footer-inner mono">
+          <span>&copy; <span id="year">2026</span> Muhammad Anas</span>
+          <a href="#top">Back to top &#8593;</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const mainNav = document.getElementById('mainNav');
+
+    menuButton.addEventListener('click', () => {
+      const open = mainNav.classList.toggle('open');
+      menuButton.setAttribute('aria-expanded', String(open));
+    });
+
+    mainNav.addEventListener('click', (event) => {
+      if (event.target.matches('a')) {
+        mainNav.classList.remove('open');
+        menuButton.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
+  </script>
+</body>
+</html>
